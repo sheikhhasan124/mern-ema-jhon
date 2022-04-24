@@ -15,10 +15,10 @@ const Shop = () => {
     const [products, setProducts]= useState([])
    
     useEffect(()=>{
-       fetch(`http://localhost:5000/product?page=${page}&size${size}`)
+       fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
        .then(res=>res.json())
        .then(data=>setProducts(data))
-    },[]);
+    },[page,size]);
     // it's for pagination button and button number
     useEffect(()=>{
      fetch('http://localhost:5000/productcount')

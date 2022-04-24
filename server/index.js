@@ -27,17 +27,26 @@ async function run(){
        
        // get products all 
        app.get('/product', async(req,res)=>{
+          console.log('query', req.query) 
+          const page = parseInt(req.query.page);
+          const size = parseInt(req.query.size);
+          
            const query = {};
            const cursor = productCollections.find(query);
-           const products = await cursor.toArray()
+           let products;
+           if(page || size){
+            products = await cursor.skip(page*size).limit(size).toArray()
+           }else{
+               products = await cursor.toArray()
+           }
            res.send(products)
        })
        // get products for pagination button number
        // we have to count product in db
        app.get('/productCount', async(req,res)=>{
-           const query = {};
-           const cursor = productCollections.find(query);
-           const count = await cursor.count();
+        //    const query = {};
+        //    const cursor = productCollections.find(query);
+           const count = await productCollections.estimatedDocumentCount();
            res.send({count})
        })
 
