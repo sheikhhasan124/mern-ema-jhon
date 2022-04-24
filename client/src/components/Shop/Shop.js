@@ -9,6 +9,8 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useProducts()
     const [pageCount,setPageCount]= useState(0)
+    const [page, setPage]=useState(0)
+    const [size,setSize]=useState(10)
     useEffect(()=>{
      fetch('http://localhost:5000/productcount')
      .then(res=>res.json())
@@ -68,8 +70,15 @@ const Shop = () => {
                 }
                 <div className='pagination'>
                     {
-                        [...Array(pageCount).keys()].map(number=><button>{number + 1}</button>)
+                        [...Array(pageCount).keys()].map(number=><button className={page===number? 'selected':''} onClick={()=>setPage(number)}>{number + 1}</button>)
                     }
+                    
+                    <select onClick={event=> setSize(event.target.value)}>
+                        <option value="5">5</option>
+                        <option selected value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
                 </div>
             </div>
 
