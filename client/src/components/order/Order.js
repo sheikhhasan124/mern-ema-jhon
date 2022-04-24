@@ -9,7 +9,7 @@ import './order.css'
 
 const Order = () => {
     const [prducts, setProducts]=useProducts()
-    const [cart,setCart]=useCart(prducts)
+    const [cart,setCart]=useCart()
 
     const handleRemoveProduct = product=>{
        const rest = cart.filter(pd=> pd._id !== product._id)

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProduct';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
@@ -9,6 +10,7 @@ import './Shop.css';
 const Shop = () => {
     
     const [pageCount,setPageCount]= useState(0)
+    const [cart, setCart] = useCart();
     // page state is used for button active
     const [page, setPage]=useState(0)
     const [size,setSize]=useState(10)
@@ -31,23 +33,8 @@ const Shop = () => {
     },[])
 
 
-    const [cart, setCart] = useState([]);
 
-
-
-    useEffect( () =>{
-        const storedCart = getStoredCart();
-        const savedCart = [];
-        for(const id in storedCart){
-            const addedProduct = products.find(product => product._id === id);
-            if(addedProduct){
-                const quantity = storedCart[id];
-                addedProduct.quantity = quantity;
-                savedCart.push(addedProduct);
-            }
-        }
-        setCart(savedCart);
-    }, [products])
+   
 
     const handleAddToCart = (selectedProduct) =>{
         // console.log(selectedProduct);
