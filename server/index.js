@@ -25,12 +25,20 @@ async function run(){
        const productCollections = client.db("emaJhon").collection("product")
        
        
-       // get products
+       // get products all 
        app.get('/product', async(req,res)=>{
            const query = {};
            const cursor = productCollections.find(query);
            const products = await cursor.toArray()
            res.send(products)
+       })
+       // get products for pagination
+       // we have to count product in db
+       app.get('/productCount', async(req,res)=>{
+           const query = {};
+           const cursor = productCollections.find(query);
+           const count = await cursor.count();
+           res.send({count})
        })
 
     }finally{
