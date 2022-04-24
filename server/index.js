@@ -32,7 +32,7 @@ async function run(){
            const products = await cursor.toArray()
            res.send(products)
        })
-       // get products for pagination
+       // get products for pagination button number
        // we have to count product in db
        app.get('/productCount', async(req,res)=>{
            const query = {};

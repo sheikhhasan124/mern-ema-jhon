@@ -7,10 +7,19 @@ import Product from '../Product/Product';
 import './Shop.css';
 
 const Shop = () => {
-    const [products, setProducts] = useProducts()
+    
     const [pageCount,setPageCount]= useState(0)
+    // page state is used for button active
     const [page, setPage]=useState(0)
     const [size,setSize]=useState(10)
+    const [products, setProducts]= useState([])
+   
+    useEffect(()=>{
+       fetch(`http://localhost:5000/product?page=${page}&size${size}`)
+       .then(res=>res.json())
+       .then(data=>setProducts(data))
+    },[]);
+    // it's for pagination button and button number
     useEffect(()=>{
      fetch('http://localhost:5000/productcount')
      .then(res=>res.json())
